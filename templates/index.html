@@ -3,7 +3,7 @@
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <body>
-  <div class="container">
+  <div class="container"> 
     <div class="jumbotron">
       <h1> OCR Tool </h1>
       <p> Extract text from Images <p>
@@ -23,16 +23,15 @@
   function performOCR() {
     var files = document.getElementById("image_file").files
     var formData = new FormData();
-    var endpoint = '/api/v1/extract_text';
-    if (files.length == 1) {
+    var endpoint = '/ocr/get-texts-for-images/';
       formData.append('image', files[0])
-    }
-    else {
+     
+    <!-- else {
       for (var i = 0; i < files.length; i++) {
         formData.append('image' + i.toString(), files[i])
       }
       endpoint = '/api/v1/bulk_extract_text';
-    }
+    } -->
 
     $.ajax({
         type: 'POST',
@@ -42,7 +41,7 @@
         cache: false,
         processData: false,
         success: function(data) {
-          if (endpoint == '/api/v1/extract_text') {
+          if (endpoint == '/ocr/get-texts-for-images') {
             swal("Converted Text", data.text);
           }
           else {
